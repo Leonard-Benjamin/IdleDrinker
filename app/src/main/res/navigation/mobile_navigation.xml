@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_build">
+
+    <fragment
+        android:id="@+id/navigation_build"
+        android:name="com.example.idledrink.ui.build.BuildFragment"
+        android:label="@string/title_build"
+        tools:layout="@layout/fragment_build" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.idledrink.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_shop"
+        android:name="com.example.idledrink.ui.shop.ShopFragment"
+        android:label="@string/title_shop"
+        tools:layout="@layout/fragment_shop" />
+
+    <fragment
+        android:id="@+id/navigation_attack"
+        android:name="com.example.idledrink.ui.attack.AttackFragment"
+        android:label="Attack"
+        tools:layout="@layout/fragment_attack" />
+</navigation>

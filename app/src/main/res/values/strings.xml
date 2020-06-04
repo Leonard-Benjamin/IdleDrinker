@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">IdleDrink</string>
+    <string name="title_build">Build</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_shop">Shop</string>
+    <string name="dialog_build_cant_add_more_employees">La capacité maximale d\'employés pour ce bâtiment est déjà atteinte\nVeuillez améliorer votre bâtiments afin d\'en engager d\'avantage</string>
+    <string name="dialog_build_cant_upgrade_building">Vous ne possédez pas assez de sous-verres pour améliorer ce Bâtiment.\nAugmentez votre production avant de réessayer</string>
+    <string name="dialog_build_cant_buy_employees">Vous ne possédez pas assez de sous-verres pour engager de nouveaux employés.\nAugmentez votre production avant de réessayer</string>
+    <string name="playername_key">playerName</string>
+
+</resources>

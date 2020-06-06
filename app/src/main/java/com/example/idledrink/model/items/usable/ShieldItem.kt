@@ -7,12 +7,9 @@ class ShieldItem: IUsable() {
         print("used")
     }
 
-    override var displayName: String
+    override var displayName: String = "Shield"
+    override var description: String = "Pour se protéger des attaques"
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
-    override var description: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-        set(value) {}
     override val tagName: String
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
     override val dataBaseColumnName: String

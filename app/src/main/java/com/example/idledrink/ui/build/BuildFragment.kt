@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,6 @@ import com.example.idledrink.R
 import com.example.idledrink.Utils
 import com.example.idledrink.adapter.BuildAdapter
 import com.example.idledrink.database.entity.BuildingEntity
-import com.example.idledrink.database.entity.StatEntity
 import com.example.idledrink.model.buildings.ABuilding
 
 interface BuildingObserver {
@@ -51,5 +49,4 @@ class BuildFragment : Fragment(), BuildingObserver {
     override fun onPruductionUpdated(atret: Float, cl: Float, sv: Float) {
         buildViewModel.updateStats(atret, cl, sv)
     }
-
 }

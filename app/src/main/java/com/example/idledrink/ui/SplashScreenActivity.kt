@@ -1,16 +1,19 @@
 package com.example.idledrink.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.telephony.TelephonyManager
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.idledrink.MainActivity
 import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.ui.roomdialog.JoinOrCreateRoomDialog
@@ -34,6 +37,7 @@ class SplashScreenActivity : AppCompatActivity(), NameDialog.NameDialogListener,
     private lateinit var prefs: SharedPreferences
     private lateinit var playerName: TextView
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
@@ -73,7 +77,8 @@ class SplashScreenActivity : AppCompatActivity(), NameDialog.NameDialogListener,
         buttonJoinOrCreateRoom.setOnClickListener {
             val fragmentManager: FragmentManager  = getSupportFragmentManager();
             val joinOrCreateRoomDialog:  JoinOrCreateRoomDialog = JoinOrCreateRoomDialog(this)
-            joinOrCreateRoomDialog.show(fragmentManager, "fragment_edit_name");        }
+            joinOrCreateRoomDialog.show(fragmentManager, "fragment_edit_name");
+        }
     }
 
     private fun launchAnimation() {

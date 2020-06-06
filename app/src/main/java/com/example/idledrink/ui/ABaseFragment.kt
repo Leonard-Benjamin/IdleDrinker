@@ -1,4 +1,9 @@
 package com.example.idledrink.ui
 
-class ABaseFragment {
+import androidx.fragment.app.Fragment
+
+abstract class ABaseFragment(): Fragment() {
+
+    abstract fun bindViews()
+
 }

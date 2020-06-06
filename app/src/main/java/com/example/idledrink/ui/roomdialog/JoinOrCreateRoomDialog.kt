@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
@@ -40,7 +41,6 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment() {
     lateinit var viewModel: RoomViewModel
 
     init {
-        setCancelable(false)
         try {
             listener = context as JoinOrCreateRoomDialogListener
         } catch (e: ClassCastException) {
@@ -66,13 +66,15 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment() {
         this.createButton = view.findViewById(R.id.join_or_create_create_button)
         this.validatebutton = view.findViewById(R.id.join_or_create_validate_new_button)
         this.newRoomLayout = view.findViewById(R.id.join_or_create_new_layout)
-        this.viewModel = ViewModelProvider(this).get(RoomViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, Utils.viewModelFactory {
+            RoomViewModel(this.activity?.application!!)
+        }).get(RoomViewModel::class.java)
         this.adapter = context?.let { RoomAdapter(it) { item -> onClickJoinOrContinue(item)} }!!
         this.layoutManager = GridLayoutManager(context, 2)
         this.rvRooms.adapter = this.adapter
         this.rvRooms.layoutManager = this.layoutManager
 
-        this.viewModel.mutableLiveData.observe(viewLifecycleOwner, Observer {
+        this.viewModel.mutableList.observe(viewLifecycleOwner, Observer {
             (this.rvRooms.adapter as RoomAdapter).rooms = it
             this.adapter.notifyDataSetChanged()
         })

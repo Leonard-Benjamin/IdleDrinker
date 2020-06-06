@@ -7,5 +7,6 @@
     <string name="dialog_build_cant_upgrade_building">Vous ne possédez pas assez de sous-verres pour améliorer ce Bâtiment.\nAugmentez votre production avant de réessayer</string>
     <string name="dialog_build_cant_buy_employees">Vous ne possédez pas assez de sous-verres pour engager de nouveaux employés.\nAugmentez votre production avant de réessayer</string>
     <string name="playername_key">playerName</string>
+    <string name="message_sender_is_you">\"You : \"</string>
 
 </resources>

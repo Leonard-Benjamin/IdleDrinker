@@ -1,35 +1,24 @@
 package com.example.idledrink.ui.roomdialog
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.idledrink.database.firebase.FireBaseManager
+import android.app.Application
 import com.example.idledrink.database.firebase.Room
+import com.example.idledrink.ui.BaseViewModel
 
 interface RoomListener {
     fun onNewEntry(list: ArrayList<Room>)
 }
 
-class RoomViewModel: ViewModel(), RoomListener {
-    var mutableLiveData: MutableLiveData<ArrayList<Room>> = MutableLiveData()
-    var roomArrayList: ArrayList<Room> = ArrayList<Room>()
-    var mFireBaseProvider : FireBaseManager
+class RoomViewModel(applocation: Application): BaseViewModel<Room>(applocation), RoomListener {
 
-    init {
-        mFireBaseProvider = FireBaseManager.instance
-        populateList()
-        mutableLiveData.value = roomArrayList
-    }
-
-    private fun populateList() {
-        roomArrayList = mFireBaseProvider.getRooms(this)
+    override fun populateList() {
+        dataList = mFireBaseProvider.getRooms(this)
     }
 
     override fun onNewEntry(list: ArrayList<Room>) {
-        this.mutableLiveData.value = list
+        this.mutableList.value = list
     }
 
     fun updateRoom(room: Room) {
         mFireBaseProvider.updateRoom(room)
-
     }
 }

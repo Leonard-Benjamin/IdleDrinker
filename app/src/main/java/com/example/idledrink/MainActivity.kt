@@ -1,17 +1,30 @@
 package com.example.idledrink
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.idledrink.adapter.BuildAdapter
+import com.example.idledrink.adapter.MainActivityViewModel
 import com.example.idledrink.database.BuildingDataBase
 import com.example.idledrink.database.dao.StatsDao
 import com.example.idledrink.database.entity.StatEntity
+import com.example.idledrink.database.firebase.FireBaseManager
+import com.example.idledrink.database.firebase.User
 import com.example.idledrink.database.repository.StatsRepository
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
@@ -24,7 +37,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var statDao: StatsDao
     lateinit var statRepository: StatsRepository
     lateinit var stats: StatEntity
-
+    lateinit var navView: BottomNavigationView
+    lateinit var user: User
 
     private val mainHandler: Handler = Handler()
 
@@ -32,16 +46,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         printTime()
+        setUser()
+        val mainActivityViewModel = ViewModelProviders.of(this,
+            Utils.viewModelFactory { MainActivityViewModel(user) })
+            .get(MainActivityViewModel::class.java)
+        mainActivityViewModel.mutableLiveData.observe(this, Observer {
+            setMessageNotification(it)
+        })
+
+
+
         SVButton = findViewById(R.id.sousverre)
         CLButton = findViewById(R.id.tokill)
         ATButton = findViewById(R.id.alctaux)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
         navView.setBackgroundColor(resources.getColor(R.color.darkGray))
         navView.selectedItemId
         val navController = findNavController(R.id.nav_host_fragment)
+
         val appBarConfiguration = AppBarConfiguration(setOf(
                 R.id.navigation_build, R.id.navigation_dashboard, R.id.navigation_attack, R.id.navigation_shop))
         navView.setupWithNavController(navController)
+
+        hasNewMessage()
 
         this.statDao = BuildingDataBase.getDatabase(application).statDao()
         this.statRepository = StatsRepository(statDao)
@@ -79,6 +106,24 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun setUser() {
+        val playerName = Utils.getSharedPrefString("playerName", this)
+        val uuId = Utils.getSharedPrefString("userId", this)
+        this.user = User(uuId, playerName)
+    }
+
+    private fun hasNewMessage() {
+        FireBaseManager.instance.hasNewMessages(this.user) { setMessageNotification(it) }
+    }
+
+    private fun setMessageNotification(count: Int) {
+        val menuItemId: Int = navView.menu.getItem(1).itemId //0 menu item index.
+        var badgeDrawable = navView.getOrCreateBadge(menuItemId)
+        badgeDrawable.number = count
+        badgeDrawable.badgeGravity = BadgeDrawable.TOP_END
+        badgeDrawable.isVisible = count > 0
+    }
+
     fun updateStatsValues(statsEntity: StatEntity) {
         playerStats.SV = statsEntity.sv
         playerStats.CL = statsEntity.cl
@@ -112,14 +157,6 @@ class MainActivity : AppCompatActivity() {
         val min: Int = cal.get(Calendar.MINUTE)
         val sec: Int = cal.get(Calendar.SECOND)
         Log.d("TIME", hours.toString() + " : " + min.toString() + "," + sec.toString())
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onResume() {

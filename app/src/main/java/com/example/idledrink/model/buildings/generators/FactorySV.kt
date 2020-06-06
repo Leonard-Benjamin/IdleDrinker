@@ -21,7 +21,7 @@ class FactorySV(level: Int, employee: Int) : AGenerator(level, employee) {
     }
 
     override fun computeAngGetProduction(): Float {
-        playerStats.SVPerSecond = this.level * 100f
+        playerStats.SVPerSecond = this.level * 100f + (this.getEmployeeCount() * 12f)
         return playerStats.SVPerSecond
     }
 

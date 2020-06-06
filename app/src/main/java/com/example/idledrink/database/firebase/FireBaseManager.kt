@@ -1,7 +1,11 @@
 package com.example.idledrink.database.firebase
 
+import android.renderscript.Sampler
+import com.example.idledrink.Utils
+import com.example.idledrink.model.items.AItem
 import com.example.idledrink.ui.dashboard.DashBoardListener
 import com.example.idledrink.ui.roomdialog.RoomListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -60,6 +64,25 @@ class FireBaseManager {
         child.setValue(room.users)
     }
 
+    fun hasNewMessages(user: User,hasNew: (Int) -> (Unit)) {
+        mDatabase.getReference("Messages").addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var numberOfNewMessage = 0
+                for (ds in dataSnapshot.children) {
+                    val message: Message = ds.getValue(Message::class.java)!!
+                    if (!message.readBy.contains(user)) {
+                        numberOfNewMessage += 1
+                    }
+                }
+                hasNew(numberOfNewMessage)
+            }
+        })
+    }
+
     fun getMessages(listener: DashBoardListener): ArrayList<Message> {
         var messages = ArrayList<Message>()
         mDatabase.getReference("Messages").addValueEventListener(object :ValueEventListener {
@@ -89,5 +112,9 @@ class FireBaseManager {
     fun updateMessage(message: Message) {
         val child = mDatabase.getReference("Messages").child(message.messageId).child("readBy")
         child.setValue(message.readBy)
+    }
+
+    fun getItemsForUser(user: User): ArrayList<AItem> {
+        return ArrayList()
     }
 }

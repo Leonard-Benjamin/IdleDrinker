@@ -1,17 +1,22 @@
 package com.example.idledrink.ui.shop
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
 import com.example.idledrink.model.items.AItem
+import com.example.idledrink.model.items.usable.ShieldItem
+import com.example.idledrink.ui.BaseViewModel
 
-class ShopViewModel : ViewModel() {
+class ShopViewModel(application: Application) : BaseViewModel<AItem>(application) {
 
-    private val testlist: MutableLiveData<ArrayList<AItem>> = MutableLiveData()
-    init {
-        testlist.value = arrayListOf(
-        )
+    override fun populateList() {
+        val list = ArrayList<AItem>()
+        list.add(ShieldItem())
+        list.add(ShieldItem())
+        list.add(ShieldItem())
+        list.add(ShieldItem())
+        list.add(ShieldItem())
+        this.dataList = list
+        //this.dataList = mFireBaseProvider.getItemsForUser(user)
     }
-
-    val text: LiveData<ArrayList<AItem>> = testlist
 }
+
+

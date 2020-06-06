@@ -2,16 +2,77 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/rv_build_border"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/rv_shop_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/orange"
+        android:text="palceHolder"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rv_shop_separator"
+        />
+
+    <FrameLayout
+        android:id="@+id/rv_shop_separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/orange"
+        app:layout_constraintTop_toBottomOf="@id/rv_shop_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rv_shop_icon"
+        />
+
+    <ImageView
+        android:id="@+id/rv_shop_icon"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/shield"
+        android:adjustViewBounds="true"
+        app:layout_constraintTop_toBottomOf="@id/rv_shop_separator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rv_shop_item_info_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rv_shop_item_info_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rv_shop_separator"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/rv_shop_icon">
+
+        <TextView
+            android:id="@+id/rv_shop_item_info_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange"
+            android:text="250 SV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_shop_item_info_count"
+            />
+
+        <TextView
+            android:id="@+id/rv_shop_item_info_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 possédés"
+            android:textColor="@color/orange"
+            app:layout_constraintTop_toBottomOf="@id/rv_shop_item_info_price"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

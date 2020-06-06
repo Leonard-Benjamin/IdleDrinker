@@ -1,27 +1,21 @@
 package com.example.idledrink.ui.dashboard
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.idledrink.Utils
 import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.database.firebase.Message
+import com.example.idledrink.ui.BaseViewModel
 
 interface DashBoardListener {
     fun onNewEntry(list: ArrayList<Message>)
 }
 
-class DashboardViewModel : ViewModel(), DashBoardListener {
-    var mutableLiveData: MutableLiveData<ArrayList<Message>> = MutableLiveData()
-    var entriesArrayList: ArrayList<Message> = ArrayList()
-    var mFireBaseProvider : FireBaseManager = FireBaseManager.instance
+class DashboardViewModel(application: Application) : BaseViewModel<Message>(application), DashBoardListener {
 
-    init {
-        populateList()
-        mutableLiveData.value = entriesArrayList
-    }
-
-    private fun populateList() {
-        entriesArrayList = mFireBaseProvider.getMessages(this)
+    override fun populateList() {
+        dataList = mFireBaseProvider.getMessages(this)
     }
 
     override fun onNewEntry(list: ArrayList<Message>) {
@@ -29,9 +23,9 @@ class DashboardViewModel : ViewModel(), DashBoardListener {
             list.sortWith(compareBy { it.insertedTime })
             if (list.size > 25) {
                 val newList = list.drop(list.size - 25) as ArrayList<Message>
-                this.mutableLiveData.value = newList
+                this.mutableList.value = newList
             } else {
-                this.mutableLiveData.value = list
+                this.mutableList.value = list
             }
         }
     }

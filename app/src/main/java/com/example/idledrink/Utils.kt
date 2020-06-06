@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import org.kodein.di.generic.contextTranslator
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Utils {
     companion object FloatToString {
@@ -45,6 +47,33 @@ class Utils {
             )
             prefs.getString(tag, null)?.let { return it }
             return ""
+        }
+
+        fun getDateFromMillis(timeStamp: Long): String? {
+            val dateFormat = SimpleDateFormat("MM-dd hh:mm")
+            dateFormat.timeZone = TimeZone.getTimeZone("GMT+2:00")
+            val date = dateFormat.format(timeStamp)
+            val splited = date.split("-")
+            val month = getMonth(splited[0])
+            return month + " " + splited[1]
+        }
+
+        private fun getMonth(monthNumber: String): String {
+            return when(monthNumber) {
+                "01" -> "Jan"
+                "02" -> "Fec"
+                "03" -> "MAr"
+                "04" -> "Avr"
+                "05" -> "Mai"
+                "06" -> "Juin"
+                "07" -> "Juil"
+                "08" -> "Aout"
+                "09" -> "Sept"
+                "10" -> "OCt"
+                "11" -> "Nov"
+                "12" -> "Dec"
+                else -> "Unknown"
+            }
         }
 
         inline fun <W : ViewModel> viewModelFactory(crossinline f: () -> W) =

@@ -32,10 +32,10 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(builds[position])
+        holder.bindView(builds[position])
     }
 
-    inner class ViewHolder (val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder (val view: View) : ABaseViewHolder<ABuilding>(view) {
 
         private val icon: ImageView = view.findViewById(R.id.rv_build_icon)
         private val text: TextView = view.findViewById(R.id.rv_build_name)
@@ -47,7 +47,7 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
         private val employeeCount: TextView = view.findViewById(R.id.rv_build_employee)
         lateinit var tvProductionTag: TextView
 
-        fun bind(item: ABuilding) {
+        override fun bindView(item: ABuilding) {
             bindIcon(item)
             bindTextfields(item)
             bindButtons(item)
@@ -103,11 +103,7 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
                 }
                 else -> "Stockage max : ${(item as AStockage).stockLimit.toString()}"
             }
-            //TODO Find why i'm getting a nullPointer when trying to get the textview
-            /**if (item is AGenerator) {
-                tvProductionTag = view.findViewWithTag(R.id.rv_build_tag_production)
-                tvProductionTag.text = (item as AGenerator).productionTag
-            }**/
+
             level.text = "Level : " + item.level.toString()
             employeeCount.text = "Employee : ${item.getEmployeeCount().toString()} / ${item.getMaxEmployee()}"
         }

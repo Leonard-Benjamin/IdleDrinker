@@ -16,21 +16,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
-import com.example.idledrink.adapter.ABaseAdapterListener
 import com.example.idledrink.adapter.RoomAdapter
 import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.database.firebase.Room
 import com.example.idledrink.database.firebase.User
 import java.util.*
-import kotlin.collections.ArrayList
 
 interface RoomCallback {
     fun onClickJoinOrContinue(room: Room)
     fun onDeleteRoomRequested(room: Room)
 }
 
-class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback,
-    ABaseAdapterListener {
+class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback {
 
     private var listener: JoinOrCreateRoomDialogListener
     private lateinit var rvRooms: RecyclerView
@@ -78,14 +75,14 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback,
             RoomViewModel(this.activity?.application!!)
         }).get(RoomViewModel::class.java)
         this.adapter = context?.let {
-            RoomAdapter(it, ArrayList(), this, true, this)
+            RoomAdapter(it, this)
         }!!
         this.layoutManager = GridLayoutManager(context, 2)
         this.rvRooms.adapter = this.adapter
         this.rvRooms.layoutManager = this.layoutManager
 
         this.viewModel.mutableList.observe(viewLifecycleOwner, Observer {
-            (this.rvRooms.adapter as RoomAdapter).datas = it
+            (this.rvRooms.adapter as RoomAdapter).rooms = it
             this.adapter.notifyDataSetChanged()
         })
 
@@ -116,11 +113,5 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback,
         viewModel.deleteRoom(room)
     }
 
-    override fun getLayout(): Int {
-        return R.layout.rv_room_row
-    }
 
-    override fun getMenuLayout(): Int {
-        return R.menu.item_onclick_menu
-    }
 }

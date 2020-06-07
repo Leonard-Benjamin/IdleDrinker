@@ -8,7 +8,7 @@ interface RoomListener {
     fun onNewEntry(list: ArrayList<Room>)
 }
 
-class RoomViewModel(applocation: Application): BaseViewModel<Room>(applocation), RoomListener {
+class RoomViewModel(application: Application): BaseViewModel<Room>(application), RoomListener {
 
     override fun populateList() {
         dataList = mFireBaseProvider.getRooms(this)

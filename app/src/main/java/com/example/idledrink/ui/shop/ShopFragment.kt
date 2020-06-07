@@ -33,7 +33,7 @@ class ShopFragment : Fragment() {
         rvShop.adapter = ShopAdapter(context!!)
         rvShop.layoutManager = GridLayoutManager(context, 2)
         shopViewModel.mutableList.observe(viewLifecycleOwner, Observer {
-            (rvShop.adapter as ShopAdapter).shopItems = it
+            (rvShop.adapter as ShopAdapter).data = it
         })
         return root
     }

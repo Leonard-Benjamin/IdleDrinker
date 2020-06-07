@@ -7,27 +7,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.model.items.AItem
 
-class ShopAdapter(val context: Context) : RecyclerView.Adapter<ShopAdapter.ViewHolder>() {
+class ShopAdapter(val context: Context) : ABaseAdapter<AItem, ShopAdapter.ViewHolder>() {
 
-    var shopItems: ArrayList<AItem> = ArrayList()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.rv_shop_row, parent, false))
+    override fun getLayout(): Int {
+        return R.layout.rv_shop_row
     }
 
-    override fun getItemCount(): Int {
-        return this.shopItems.size
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(context).inflate(getLayout(), parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(shopItems[position])
-    }
-
-    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<AItem>(view, R.menu.item_onclick_menu) {
+    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<AItem>(view) {
 
         private val tvItemName: TextView = view.findViewById(R.id.rv_shop_tv)
         private val ivIcon: ImageView = view.findViewById(R.id.rv_shop_icon)
@@ -49,6 +42,10 @@ class ShopAdapter(val context: Context) : RecyclerView.Adapter<ShopAdapter.ViewH
 
         override fun unBindView() {
             tvItemName.text = null
+        }
+
+        override fun getMenuLayout(): Int {
+            return R.menu.item_onclick_menu
         }
     }
 }

@@ -74,16 +74,15 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback {
         viewModel = ViewModelProviders.of(this, Utils.viewModelFactory {
             RoomViewModel(this.activity?.application!!)
         }).get(RoomViewModel::class.java)
-        this.adapter = context?.let {
+        this.layoutManager = GridLayoutManager(context, 2)
+        this.rvRooms.adapter = context?.let {
             RoomAdapter(it, this)
         }!!
-        this.layoutManager = GridLayoutManager(context, 2)
-        this.rvRooms.adapter = this.adapter
         this.rvRooms.layoutManager = this.layoutManager
 
         this.viewModel.mutableList.observe(viewLifecycleOwner, Observer {
-            (this.rvRooms.adapter as RoomAdapter).rooms = it
-            this.adapter.notifyDataSetChanged()
+            (this.rvRooms.adapter as RoomAdapter).data = it
+            (this.rvRooms.adapter as RoomAdapter).notifyDataSetChanged()
         })
 
         this.createButton.setOnClickListener {

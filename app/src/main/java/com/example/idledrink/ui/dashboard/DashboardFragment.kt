@@ -49,9 +49,9 @@ class DashboardFragment : Fragment(), MessageCallback {
         rvDashBoard.adapter = DashBoardAdapter(context!!, this)
         rvDashBoard.layoutManager = LinearLayoutManager(context)
         dashboardViewModel.mutableList.observe(viewLifecycleOwner, Observer {
-            (rvDashBoard.adapter as DashBoardAdapter).setData(it)
+            (rvDashBoard.adapter as DashBoardAdapter).data = it
             (rvDashBoard.adapter as DashBoardAdapter).notifyDataSetChanged()
-            rvDashBoard.smoothScrollToPosition((rvDashBoard.adapter as DashBoardAdapter).entries.size)
+            rvDashBoard.smoothScrollToPosition((rvDashBoard.adapter as DashBoardAdapter).data.size)
         })
 
         sendMessageButton.setOnClickListener {

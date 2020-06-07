@@ -13,22 +13,9 @@ import com.example.idledrink.database.firebase.Room
 import com.example.idledrink.database.firebase.User
 import com.example.idledrink.ui.roomdialog.RoomCallback
 
-class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : RecyclerView.Adapter<com.example.idledrink.adapter.RoomAdapter.ViewHolder>(){
-    var rooms: ArrayList<Room> = ArrayList()
+class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : ABaseAdapter<Room, RoomAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomAdapter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.rv_room_row, parent, false))
-    }
-
-    override fun getItemCount(): Int {
-        return rooms.size
-    }
-
-    override fun onBindViewHolder(holder: RoomAdapter.ViewHolder, position: Int) {
-        holder.bindView(rooms[position])
-    }
-
-    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<Room>(view, R.menu.message_onclick_menu) {
+    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<Room>(view) {
 
         private var name: TextView = view.findViewById(R.id.rv_room_name)
         private var players: TextView = view.findViewById(R.id.rv_room_players)
@@ -40,7 +27,7 @@ class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : Recycl
 
         override fun onItemMenuClick(itemId: Int) {
             when(itemId) {
-                R.id.delete -> roomCallback.onDeleteRoomRequested(rooms[adapterPosition])
+                R.id.delete -> roomCallback.onDeleteRoomRequested(data[adapterPosition])
             }
         }
 
@@ -59,5 +46,17 @@ class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : Recycl
                 roomCallback.onClickJoinOrContinue(item)
             }
         }
+
+        override fun getMenuLayout(): Int {
+            return R.menu.message_onclick_menu
+        }
+    }
+
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): RoomAdapter.ViewHolder {
+        return ViewHolder(LayoutInflater.from(context).inflate(getLayout(), parent, false))
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.rv_room_row
     }
 }

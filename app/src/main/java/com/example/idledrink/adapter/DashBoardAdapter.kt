@@ -10,9 +10,10 @@ import com.example.idledrink.R
 import com.example.idledrink.Utils
 import com.example.idledrink.database.firebase.Message
 import com.example.idledrink.database.firebase.User
+import com.example.idledrink.ui.dashboard.MessageCallback
 import java.util.*
 
-class DashBoardAdapter(val context: Context, val onReadMessage: (Message) -> Unit) : RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
+class DashBoardAdapter(val context: Context, val messageCallback: MessageCallback) : RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
 
     var entries = ArrayList<Message>()
 
@@ -44,7 +45,13 @@ class DashBoardAdapter(val context: Context, val onReadMessage: (Message) -> Uni
             val user = User(playerId, player)
             if (!message.readBy.contains(user)) {
                 message.addUserRead(user)
-                onReadMessage(message)
+                messageCallback.onMessageRead(message)
+            }
+        }
+
+        override fun onItemMenuClick(itemId: Int) {
+            when(itemId) {
+                R.id.delete -> messageCallback.onDeleteMessageRequested(entries[adapterPosition])
             }
         }
 

@@ -22,7 +22,12 @@ import com.example.idledrink.database.firebase.Room
 import com.example.idledrink.database.firebase.User
 import java.util.*
 
-class JoinOrCreateRoomDialog(context: Context): DialogFragment() {
+interface RoomCallback {
+    fun onClickJoinOrContinue(room: Room)
+    fun onDeleteRoomRequested(room: Room)
+}
+
+class JoinOrCreateRoomDialog(context: Context): DialogFragment(), RoomCallback {
 
     private var listener: JoinOrCreateRoomDialogListener
     private lateinit var rvRooms: RecyclerView
@@ -69,7 +74,9 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment() {
         viewModel = ViewModelProviders.of(this, Utils.viewModelFactory {
             RoomViewModel(this.activity?.application!!)
         }).get(RoomViewModel::class.java)
-        this.adapter = context?.let { RoomAdapter(it) { item -> onClickJoinOrContinue(item)} }!!
+        this.adapter = context?.let {
+            RoomAdapter(it, this)
+        }!!
         this.layoutManager = GridLayoutManager(context, 2)
         this.rvRooms.adapter = this.adapter
         this.rvRooms.layoutManager = this.layoutManager
@@ -98,8 +105,12 @@ class JoinOrCreateRoomDialog(context: Context): DialogFragment() {
         }
     }
 
-    private fun onClickJoinOrContinue(room: Room) {
+    override fun onClickJoinOrContinue(room: Room) {
         viewModel.updateRoom(room)
+    }
+
+    override fun onDeleteRoomRequested(room: Room) {
+        viewModel.deleteRoom(room)
     }
 
 

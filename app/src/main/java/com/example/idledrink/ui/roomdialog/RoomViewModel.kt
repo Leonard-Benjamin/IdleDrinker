@@ -21,4 +21,8 @@ class RoomViewModel(applocation: Application): BaseViewModel<Room>(applocation),
     fun updateRoom(room: Room) {
         mFireBaseProvider.updateRoom(room)
     }
+
+    fun deleteRoom(room: Room) {
+        mFireBaseProvider.deleteRoom(room)
+    }
 }

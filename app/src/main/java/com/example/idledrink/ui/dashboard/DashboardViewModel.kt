@@ -35,7 +35,11 @@ class DashboardViewModel(application: Application) : BaseViewModel<Message>(appl
     }
 
     fun updateMessage(message: Message) {
-        FireBaseManager.instance.updateMessage(message)
+        this.mFireBaseProvider.updateMessage(message)
+    }
+
+    fun deleteMessage(message: Message) {
+        this.mFireBaseProvider.deleteMessage(message)
     }
 }
 

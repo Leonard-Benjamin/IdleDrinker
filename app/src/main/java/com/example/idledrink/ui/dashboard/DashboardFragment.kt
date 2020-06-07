@@ -21,7 +21,14 @@ import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.database.firebase.Message
 import com.example.idledrink.ui.ABaseFragment
 
-class DashboardFragment : Fragment() {
+interface MessageCallback {
+    fun onMessageRead(message: Message)
+    fun onDeleteMessageRequested(message: Message)
+}
+
+class DashboardFragment : Fragment(), MessageCallback {
+
+
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var sendMessageButton: Button
@@ -39,7 +46,7 @@ class DashboardFragment : Fragment() {
         val rvDashBoard: RecyclerView = root.findViewById(R.id.rv_dashBoard)
         sendMessageButton = root.findViewById(R.id.dashBoard_message_send_button)
         messageEditText = root.findViewById(R.id.dashBoard_message_editText)
-        rvDashBoard.adapter = DashBoardAdapter(context!!) { message -> onMessageRead(message)}
+        rvDashBoard.adapter = DashBoardAdapter(context!!, this)
         rvDashBoard.layoutManager = LinearLayoutManager(context)
         dashboardViewModel.mutableList.observe(viewLifecycleOwner, Observer {
             (rvDashBoard.adapter as DashBoardAdapter).setData(it)
@@ -57,7 +64,11 @@ class DashboardFragment : Fragment() {
         return root
     }
 
-    private fun onMessageRead(message: Message) {
+    override fun onMessageRead(message: Message) {
         dashboardViewModel.updateMessage(message)
+    }
+
+    override fun onDeleteMessageRequested(message: Message) {
+        dashboardViewModel.deleteMessage(message)
     }
 }

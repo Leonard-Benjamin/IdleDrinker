@@ -117,4 +117,12 @@ class FireBaseManager {
     fun getItemsForUser(user: User): ArrayList<AItem> {
         return ArrayList()
     }
+
+    fun deleteMessage(message: Message) {
+        mDatabase.getReference("Messages").child(message.messageId).removeValue()
+    }
+
+    fun deleteRoom(room: Room) {
+        mDatabase.getReference("Room").child(room.roomId).removeValue()
+    }
 }

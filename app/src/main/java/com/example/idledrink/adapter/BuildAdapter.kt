@@ -35,7 +35,7 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
         holder.bindView(builds[position])
     }
 
-    inner class ViewHolder (val view: View) : ABaseAdapter<ABuilding>.ABaseViewHolder(view) {
+    inner class ViewHolder (val view: View) : ABaseViewHolder<ABuilding>(view) {
 
         private val icon: ImageView = view.findViewById(R.id.rv_build_icon)
         private val text: TextView = view.findViewById(R.id.rv_build_name)

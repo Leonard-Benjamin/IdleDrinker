@@ -1,12 +1,9 @@
 package com.example.idledrink
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.view.contentcapture.ContentCaptureCondition
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.kodein.di.generic.contextTranslator
 import java.text.SimpleDateFormat
 import java.util.*
 

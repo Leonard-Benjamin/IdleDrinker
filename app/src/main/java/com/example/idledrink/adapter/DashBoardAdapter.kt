@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
 import com.example.idledrink.database.firebase.Message
 import com.example.idledrink.database.firebase.User
 import com.example.idledrink.ui.dashboard.MessageCallback
-import java.util.*
 
 class DashBoardAdapter(val context: Context, val messageCallback: MessageCallback) : ABaseAdapter<Message, DashBoardAdapter.ViewHolder>(){
 

@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,11 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
-import com.example.idledrink.adapter.BuildAdapter
 import com.example.idledrink.adapter.DashBoardAdapter
-import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.database.firebase.Message
-import com.example.idledrink.ui.ABaseFragment
 
 interface MessageCallback {
     fun onMessageRead(message: Message)
@@ -27,8 +22,6 @@ interface MessageCallback {
 }
 
 class DashboardFragment : Fragment(), MessageCallback {
-
-
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var sendMessageButton: Button

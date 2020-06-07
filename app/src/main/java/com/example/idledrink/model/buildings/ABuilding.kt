@@ -7,7 +7,7 @@ import com.example.idledrink.model.IUpgradable
 
 abstract class ABuilding: IUpgradable, IIdentifiable {
     private var employees: Int = 0
-    var baseMaxEmployee: Int = 2
+    private var baseMaxEmployee: Int = 2
 
     override var level: Int = 0
 

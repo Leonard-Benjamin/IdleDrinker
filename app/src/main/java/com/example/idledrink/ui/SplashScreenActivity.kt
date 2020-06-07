@@ -1,28 +1,21 @@
 package com.example.idledrink.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.telephony.TelephonyManager
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import com.example.idledrink.MainActivity
 import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.ui.roomdialog.JoinOrCreateRoomDialog
-
 import androidx.fragment.app.FragmentManager
 import com.example.idledrink.R
 import com.example.idledrink.Utils
 import java.util.*
-
 
 class SplashScreenActivity : AppCompatActivity(), NameDialog.NameDialogListener,
     JoinOrCreateRoomDialog.JoinOrCreateRoomDialogListener {

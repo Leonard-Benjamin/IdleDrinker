@@ -15,7 +15,6 @@ class ShopViewModel(application: Application) : BaseViewModel<AItem>(application
         list.add(ShieldItem())
         list.add(ShieldItem())
         this.dataList = list
-        //this.dataList = mFireBaseProvider.getItemsForUser(user)
     }
 }
 

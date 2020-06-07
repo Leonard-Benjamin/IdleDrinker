@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
 import com.example.idledrink.database.firebase.Room
@@ -21,10 +20,6 @@ class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : ABaseA
         private var players: TextView = view.findViewById(R.id.rv_room_players)
         private var joinButton: Button = view.findViewById(R.id.rv_room_join_button)
 
-        override fun unBindView() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
         override fun onItemMenuClick(itemId: Int) {
             when(itemId) {
                 R.id.delete -> roomCallback.onDeleteRoomRequested(data[adapterPosition])
@@ -37,7 +32,7 @@ class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : ABaseA
             item.users.forEach {
                 if (it.uuid == Utils.getSharedPrefString("userId", context)) {
                     joinButton.background = context.resources.getDrawable(R.drawable.button_blue_background)
-                    joinButton.text = "Continuer"
+                    joinButton.text = context.getString(R.string.continue_string)
                 }
             }
 
@@ -49,6 +44,10 @@ class RoomAdapter(val context: Context, val roomCallback: RoomCallback) : ABaseA
 
         override fun getMenuLayout(): Int {
             return R.menu.message_onclick_menu
+        }
+
+        override fun unBindView() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 

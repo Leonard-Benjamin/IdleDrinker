@@ -1,6 +1,5 @@
 package com.example.idledrink.model.buildings
 
-
 abstract class AGenerator(level: Int, employees: Int) : ABuilding() {
 
     companion object Production {

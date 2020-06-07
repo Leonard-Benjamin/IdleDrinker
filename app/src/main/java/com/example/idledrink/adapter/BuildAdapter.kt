@@ -49,7 +49,7 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
 
         override fun bindView(item: ABuilding) {
             bindIcon(item)
-            bindTextfields(item)
+            bindTextFields(item)
             bindButtons(item)
         }
 
@@ -86,7 +86,7 @@ class BuildAdapter(val context: Context, val listener: BuildingObserver): Recycl
             }
         }
 
-        private fun bindTextfields(item: ABuilding) {
+        private fun bindTextFields(item: ABuilding) {
             text.text = item.displayName
             tvDescription.text = item.description
             tvProductionOrStockLimit.text = when(item){

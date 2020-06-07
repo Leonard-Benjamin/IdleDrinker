@@ -1,10 +1,6 @@
 package com.example.idledrink.ui.dashboard
 
 import android.app.Application
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.idledrink.Utils
-import com.example.idledrink.database.firebase.FireBaseManager
 import com.example.idledrink.database.firebase.Message
 import com.example.idledrink.ui.BaseViewModel
 

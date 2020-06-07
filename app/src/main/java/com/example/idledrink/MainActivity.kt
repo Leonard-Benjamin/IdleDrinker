@@ -1,22 +1,15 @@
 package com.example.idledrink
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.idledrink.adapter.BuildAdapter
 import com.example.idledrink.adapter.MainActivityViewModel
 import com.example.idledrink.database.BuildingDataBase
 import com.example.idledrink.database.dao.StatsDao
@@ -53,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel.mutableLiveData.observe(this, Observer {
             setMessageNotification(it)
         })
-
-
 
         SVButton = findViewById(R.id.sousverre)
         CLButton = findViewById(R.id.tokill)

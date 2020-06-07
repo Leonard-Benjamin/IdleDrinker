@@ -13,15 +13,13 @@ import com.example.idledrink.database.entity.BuildingEntity
 import com.example.idledrink.database.entity.StatEntity
 
 @Database(entities = arrayOf(BuildingEntity::class, StatEntity::class), version = 3, exportSchema = false)
-public abstract class BuildingDataBase : RoomDatabase() {
+abstract class BuildingDataBase : RoomDatabase() {
 
     abstract fun buildingDao(): BuildingDao
 
     abstract fun statDao(): StatsDao
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
         @Volatile
         private var INSTANCE: BuildingDataBase? = null
 

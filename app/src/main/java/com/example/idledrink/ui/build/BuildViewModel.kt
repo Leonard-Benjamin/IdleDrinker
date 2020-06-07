@@ -7,9 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.idledrink.PlayerStatsManager
 import com.example.idledrink.database.BuildingDataBase
 import com.example.idledrink.database.entity.BuildingEntity
-import com.example.idledrink.database.entity.StatEntity
 import com.example.idledrink.database.repository.BuildingRepository
-import com.example.idledrink.database.repository.StatsRepository
 import com.example.idledrink.model.buildings.ABuilding
 import com.example.idledrink.model.buildings.generators.AlchoolInhiniter
 import com.example.idledrink.model.buildings.generators.Distillery
@@ -17,7 +15,6 @@ import com.example.idledrink.model.buildings.generators.FactorySV
 import com.example.idledrink.model.buildings.stockage.AlchoolTank
 import com.example.idledrink.model.buildings.stockage.GeneticLab
 import com.example.idledrink.model.buildings.stockage.SVWareHouse
-import org.w3c.dom.Entity
 
 class BuildViewModel(application: Application) : ViewModel() {
 

@@ -1,11 +1,8 @@
 package com.example.idledrink.database.firebase
 
-import android.renderscript.Sampler
-import com.example.idledrink.Utils
 import com.example.idledrink.model.items.AItem
 import com.example.idledrink.ui.dashboard.DashBoardListener
 import com.example.idledrink.ui.roomdialog.RoomListener
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,7 +12,7 @@ import kotlin.collections.ArrayList
 
 class FireBaseManager {
 
-    val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val mDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     private object HOLDER {
         val INSTANCE = FireBaseManager()

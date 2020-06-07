@@ -14,10 +14,5 @@ class App: Application(), KodeinAware {
 
         bind() from singleton { instance<BuildingDataBase>().buildingDao()}
         bind() from singleton { instance<BuildingDataBase>().statDao()}
-
-
     }
-
-
-
 }

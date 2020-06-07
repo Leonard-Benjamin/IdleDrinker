@@ -7,7 +7,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
-
 class BuildingRepository(private val buildingDao: BuildingDao) {
 
     fun getBuildings(id: Long): BuildingEntity = runBlocking {

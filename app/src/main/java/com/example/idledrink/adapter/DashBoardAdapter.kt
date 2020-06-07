@@ -1,11 +1,8 @@
 package com.example.idledrink.adapter
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
 import com.example.idledrink.database.firebase.Message
@@ -13,27 +10,14 @@ import com.example.idledrink.database.firebase.User
 import com.example.idledrink.ui.dashboard.MessageCallback
 import java.util.*
 
-class DashBoardAdapter(val context: Context, val messageCallback: MessageCallback) : RecyclerView.Adapter<DashBoardAdapter.ViewHolder>(){
+class DashBoardAdapter(context: Context,
+                       data: ArrayList<Message>,
+                       listener: ABaseAdapterListener,
+                       withPopoupMenu: Boolean,
+                       val messageCallback: MessageCallback)
+    : ABaseAdapter<Message>(data, context, withPopoupMenu, listener) {
 
-    var entries = ArrayList<Message>()
-
-    fun setData(list: ArrayList<Message>) {
-        this.entries = list
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashBoardAdapter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.rv_dashboard_row, parent, false))
-    }
-
-    override fun getItemCount(): Int {
-        return entries.size
-    }
-
-    override fun onBindViewHolder(holder: DashBoardAdapter.ViewHolder, position: Int) {
-        holder.bindView(entries[position])
-    }
-
-    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<Message>(view, R.menu.message_onclick_menu) {
+    inner class ViewHolder (view: View) : ABaseViewHolderWithPopupMenu<Message>(view) {
 
         private var tvUserNameString: TextView = view.findViewById(R.id.rv_dashboard_username_tv)
         private var tvTextString: TextView = view.findViewById(R.id.rv_dashboard_message_tv)
@@ -51,7 +35,7 @@ class DashBoardAdapter(val context: Context, val messageCallback: MessageCallbac
 
         override fun onItemMenuClick(itemId: Int) {
             when(itemId) {
-                R.id.delete -> messageCallback.onDeleteMessageRequested(entries[adapterPosition])
+                R.id.delete -> messageCallback.onDeleteMessageRequested(datas[adapterPosition])
             }
         }
 
@@ -64,12 +48,6 @@ class DashBoardAdapter(val context: Context, val messageCallback: MessageCallbac
             tvTextString.text = item.text
             tvReadByCount.text = Utils.getDateFromMillis(item.insertedTime as Long)
             setRead(item)
-        }
-
-        override fun unBindView() {
-            tvTextString.text = null
-            tvUserNameString.text = null
-            tvReadByCount.text = null
         }
     }
 }

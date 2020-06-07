@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.idledrink.R
 import com.example.idledrink.Utils
+import com.example.idledrink.adapter.ABaseAdapter
+import com.example.idledrink.adapter.ABaseAdapterListener
 import com.example.idledrink.adapter.ShopAdapter
+import com.example.idledrink.model.items.AItem
 
-class ShopFragment : Fragment() {
+class ShopFragment : Fragment(), ABaseAdapterListener {
 
     private lateinit var shopViewModel: ShopViewModel
 
@@ -30,11 +33,19 @@ class ShopFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_shop, container, false)
         val rvShop: RecyclerView = root.findViewById(R.id.rv_shop)
-        rvShop.adapter = ShopAdapter(context!!)
+        rvShop.adapter = ShopAdapter(context!!, ArrayList(), this, true)
         rvShop.layoutManager = GridLayoutManager(context, 2)
         shopViewModel.mutableList.observe(viewLifecycleOwner, Observer {
-            (rvShop.adapter as ShopAdapter).shopItems = it
+            (rvShop.adapter as ABaseAdapter<AItem>).datas = it
         })
         return root
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.rv_shop_row
+    }
+
+    override fun getMenuLayout(): Int {
+        return R.menu.item_onclick_menu
     }
 }
